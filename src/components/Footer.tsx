@@ -59,7 +59,7 @@ const Footer = () => {
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-white transition-colors duration-300 bg-gray-800 p-2 rounded-lg hover:bg-indigo-600"
+                    className="text-gray-400 hover:text-white transition-colors duration-300 bg-gray-800 p-2 rounded-lg hover:bg-indigo-600 flex items-center justify-center w-10 h-10"
                     aria-label={link.name}
                   >
                     <link.icon className="h-5 w-5" />
@@ -67,14 +67,14 @@ const Footer = () => {
                 ))}
                 <a
                   href="mailto:srikumarpride@gmail.com"
-                  className="text-gray-400 hover:text-white transition-colors duration-300 bg-gray-800 p-2 rounded-lg hover:bg-indigo-600"
+                  className="text-gray-400 hover:text-white transition-colors duration-300 bg-gray-800 p-2 rounded-lg hover:bg-indigo-600 flex items-center justify-center w-10 h-10"
                   aria-label="Email"
                 >
                   <HiMail className="h-5 w-5" />
                 </a>
                 <a
                   href="tel:+917993793171"
-                  className="text-gray-400 hover:text-white transition-colors duration-300 bg-gray-800 p-2 rounded-lg hover:bg-indigo-600"
+                  className="text-gray-400 hover:text-white transition-colors duration-300 bg-gray-800 p-2 rounded-lg hover:bg-indigo-600 flex items-center justify-center w-10 h-10"
                   aria-label="Phone"
                 >
                   <HiPhone className="h-5 w-5" />
@@ -82,7 +82,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center text-gray-400 mt-4">
                 <HiLocationMarker className="h-5 w-5 mr-2 text-indigo-400" />
-                <span>Ananthapur, India</span>
+                <span>Bengaluru, India</span>
               </div>
             </motion.div>
 
@@ -119,8 +119,10 @@ const Footer = () => {
               <h3 className="text-xl font-semibold text-white">Services</h3>
               <ul className="space-y-3">
                 {services.map((service) => (
-                  <li key={service.name} className="flex items-start space-x-3">
-                    <service.icon className="h-5 w-5 text-indigo-400 mt-0.5" />
+                  <li key={service.name} className="flex items-center space-x-3">
+                    <div className="flex items-center justify-center w-8 h-8 bg-gray-800 rounded-lg">
+                      <service.icon className="h-4 w-4 text-indigo-400" />
+                    </div>
                     <span className="text-gray-400">{service.name}</span>
                   </li>
                 ))}
