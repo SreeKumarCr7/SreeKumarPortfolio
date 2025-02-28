@@ -182,7 +182,6 @@ const Contact = () => {
           </h2>
           <div className="w-24 h-1.5 bg-gradient-to-r from-indigo-500 to-purple-600 mx-auto rounded-full mb-6"></div>
           <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-            Feel free to reach out to me for any questions, opportunities, or just to say hello!
             I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
           </p>
         </motion.div>
@@ -229,20 +228,6 @@ const Contact = () => {
                   ))}
                 </div>
 
-                <div className="mt-8">
-                  <h4 className="text-lg font-medium mb-4 text-gray-900 border-b pb-2 border-gray-100 flex items-center">
-                    <span className="bg-gradient-to-r from-indigo-500 to-purple-600 w-7 h-7 rounded-full flex items-center justify-center mr-2">
-                      <HiMail className="h-3 w-3 text-white" />
-                    </span>
-                    Contact Methods
-                  </h4>
-                  <div className="bg-gradient-to-r from-indigo-50 to-purple-50 p-4 rounded-lg">
-                    <p className="text-gray-700 text-sm">
-                      Feel free to reach out via phone or email. I'm always available to discuss new opportunities.
-                    </p>
-                  </div>
-                </div>
-                
                 <div className="mt-8 pt-6 border-t border-gray-100">
                   <div className="bg-gradient-to-r from-indigo-50 to-purple-50 p-4 rounded-lg">
                     <p className="text-gray-700 text-sm italic">

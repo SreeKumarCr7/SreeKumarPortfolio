@@ -57,14 +57,14 @@ const Footer = () => {
               <p className="text-gray-400 leading-relaxed">
                 A passionate Frontend Developer focused on creating responsive and user-friendly web applications with modern technologies.
               </p>
-              <div className="flex justify-center items-center space-x-5 pt-4 mx-auto">
+              <div className="flex justify-start space-x-4 pt-4">
                 {socialLinks.map((link) => (
                   <a
                     key={link.name}
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-400 hover:text-white transition-colors duration-300 bg-gray-800 p-2.5 rounded-lg hover:bg-indigo-600 flex items-center justify-center w-11 h-11"
+                    className="text-gray-400 hover:text-white transition-colors duration-300 bg-gray-800 p-2 rounded-lg hover:bg-indigo-600 flex items-center justify-center w-10 h-10"
                     aria-label={link.name}
                   >
                     <link.icon className="h-5 w-5" />
@@ -72,20 +72,20 @@ const Footer = () => {
                 ))}
                 <a
                   href="mailto:srikumarpride@gmail.com"
-                  className="text-gray-400 hover:text-white transition-colors duration-300 bg-gray-800 p-2.5 rounded-lg hover:bg-indigo-600 flex items-center justify-center w-11 h-11"
+                  className="text-gray-400 hover:text-white transition-colors duration-300 bg-gray-800 p-2 rounded-lg hover:bg-indigo-600 flex items-center justify-center w-10 h-10"
                   aria-label="Email"
                 >
                   <HiMail className="h-5 w-5" />
                 </a>
                 <a
                   href="tel:+917993793171"
-                  className="text-gray-400 hover:text-white transition-colors duration-300 bg-gray-800 p-2.5 rounded-lg hover:bg-indigo-600 flex items-center justify-center w-11 h-11"
+                  className="text-gray-400 hover:text-white transition-colors duration-300 bg-gray-800 p-2 rounded-lg hover:bg-indigo-600 flex items-center justify-center w-10 h-10"
                   aria-label="Phone"
                 >
                   <HiPhone className="h-5 w-5" />
                 </a>
               </div>
-              <div className="flex items-center justify-center text-gray-400 mt-4">
+              <div className="flex justify-start items-center text-gray-400 mt-4">
                 <HiLocationMarker className="h-5 w-5 mr-2 text-indigo-400" />
                 <span>Bengaluru, India</span>
               </div>
