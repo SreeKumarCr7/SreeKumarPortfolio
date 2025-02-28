@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import { useState, useRef } from 'react';
 import { HiMail, HiPhone, HiLocationMarker } from 'react-icons/hi';
-import { FaLinkedinIn, FaGithub } from 'react-icons/fa';
 
 const Contact = () => {
   const formRef = useRef<HTMLFormElement>(null);
@@ -161,21 +160,6 @@ const Contact = () => {
     },
   ];
 
-  const socialLinks = [
-    {
-      name: 'LinkedIn',
-      icon: FaLinkedinIn,
-      url: 'https://www.linkedin.com/in/c-sree-kumar-0ab829293',
-      color: 'bg-[#0077B5]',
-    },
-    {
-      name: 'GitHub',
-      icon: FaGithub,
-      url: 'https://github.com/sreekumarcr7',
-      color: 'bg-[#333]',
-    },
-  ];
-
   return (
     <section id="contact" className="py-20 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
       {/* Decorative balls */}
@@ -248,30 +232,14 @@ const Contact = () => {
                 <div className="mt-8">
                   <h4 className="text-lg font-medium mb-4 text-gray-900 border-b pb-2 border-gray-100 flex items-center">
                     <span className="bg-gradient-to-r from-indigo-500 to-purple-600 w-7 h-7 rounded-full flex items-center justify-center mr-2">
-                      <FaLinkedinIn className="h-3 w-3 text-white" />
+                      <HiMail className="h-3 w-3 text-white" />
                     </span>
-                    Connect with me
+                    Contact Methods
                   </h4>
-                  <div className="flex space-x-4 mt-5 justify-center">
-                    {socialLinks.map((link, index) => (
-                      <motion.a
-                        key={link.name}
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`${link.color} p-3 rounded-full text-white transition-all duration-300 hover:scale-110 hover:shadow-lg transform`}
-                        aria-label={link.name}
-                        whileHover={{ 
-                          y: -5,
-                          boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)"
-                        }}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: index * 0.1 + 0.3 }}
-                      >
-                        <link.icon className="h-5 w-5" />
-                      </motion.a>
-                    ))}
+                  <div className="bg-gradient-to-r from-indigo-50 to-purple-50 p-4 rounded-lg">
+                    <p className="text-gray-700 text-sm">
+                      Feel free to reach out via phone or email. I'm always available to discuss new opportunities.
+                    </p>
                   </div>
                 </div>
                 
