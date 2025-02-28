@@ -1,6 +1,7 @@
 import express from 'express';
 import Contact from '../models/Contact.js';
 import { sendEmail } from '../utils/email.js';
+import { appendToGoogleSheet } from '../utils/googleSheets.js';
 import auth from '../middleware/auth.js';
 
 const router = express.Router();
@@ -11,7 +12,10 @@ router.post('/', async (req, res) => {
     // 1. Save to database
     const contact = await Contact.create(req.body);
     
-    // 2. Send email notification
+    // 2. Append to Google Sheet
+    await appendToGoogleSheet(req.body);
+    
+    // 3. Send email notification
     const emailText = `
       New Contact Form Submission:
       
@@ -30,7 +34,7 @@ router.post('/', async (req, res) => {
       html: emailText.replace(/\n/g, '<br>')
     });
 
-    // 3. Send success response
+    // 4. Send success response
     res.status(201).json({ 
       message: 'Message sent successfully',
       contact: contact

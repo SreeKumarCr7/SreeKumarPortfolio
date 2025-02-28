@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import { FaLinkedinIn, FaPhoneAlt } from 'react-icons/fa';
-import { HiMail } from 'react-icons/hi';
+import { FaLinkedinIn, FaGithub, FaCode, FaLaptopCode, FaReact } from 'react-icons/fa';
+import { HiMail, HiPhone, HiLocationMarker } from 'react-icons/hi';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -12,14 +12,9 @@ const Footer = () => {
       url: 'https://www.linkedin.com/in/c-sree-kumar-0ab829293',
     },
     {
-      name: 'Phone',
-      icon: FaPhoneAlt,
-      url: 'tel:+917993793171',
-    },
-    {
-      name: 'Email',
-      icon: HiMail,
-      url: 'mailto:srikumarpride@gmail.com',
+      name: 'GitHub',
+      icon: FaGithub,
+      url: 'https://github.com/sreekumarcr7',
     },
   ];
 
@@ -28,28 +23,67 @@ const Footer = () => {
     { name: 'About', href: '#about' },
     { name: 'Skills', href: '#skills' },
     { name: 'Projects', href: '#projects' },
+    { name: 'Achievements', href: '#achievements' },
+    { name: 'Interests', href: '#interests' },
     { name: 'Contact', href: '#contact' },
+  ];
+
+  const services = [
+    { name: 'Frontend Development', icon: FaReact },
+    { name: 'UI/UX Design', icon: FaLaptopCode },
+    { name: 'Chrome Extensions', icon: FaCode },
   ];
 
   return (
     <footer className="bg-gradient-to-b from-gray-900 to-black text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="py-16">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
-              className="space-y-4"
+              className="space-y-4 md:col-span-2"
             >
               <h3 className="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
-                Sree Kumar
+                C. Sree Kumar
               </h3>
               <p className="text-gray-400 leading-relaxed">
-                A passionate developer focused on creating innovative solutions through web development,
-                automation, and mobile applications. Contact me at +91 7993793171
+                A passionate Frontend Developer focused on creating responsive and user-friendly web applications with modern technologies.
               </p>
+              <div className="flex space-x-4 pt-4">
+                {socialLinks.map((link) => (
+                  <a
+                    key={link.name}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-400 hover:text-white transition-colors duration-300 bg-gray-800 p-2 rounded-lg hover:bg-indigo-600"
+                    aria-label={link.name}
+                  >
+                    <link.icon className="h-5 w-5" />
+                  </a>
+                ))}
+                <a
+                  href="mailto:srikumarpride@gmail.com"
+                  className="text-gray-400 hover:text-white transition-colors duration-300 bg-gray-800 p-2 rounded-lg hover:bg-indigo-600"
+                  aria-label="Email"
+                >
+                  <HiMail className="h-5 w-5" />
+                </a>
+                <a
+                  href="tel:+917993793171"
+                  className="text-gray-400 hover:text-white transition-colors duration-300 bg-gray-800 p-2 rounded-lg hover:bg-indigo-600"
+                  aria-label="Phone"
+                >
+                  <HiPhone className="h-5 w-5" />
+                </a>
+              </div>
+              <div className="flex items-center text-gray-400 mt-4">
+                <HiLocationMarker className="h-5 w-5 mr-2 text-indigo-400" />
+                <span>Ananthapur, India</span>
+              </div>
             </motion.div>
 
             <motion.div
@@ -59,16 +93,16 @@ const Footer = () => {
               viewport={{ once: true }}
               className="space-y-4"
             >
-              <h3 className="text-xl font-semibold">Quick Links</h3>
-              <ul className="space-y-3">
+              <h3 className="text-xl font-semibold text-white">Quick Links</h3>
+              <ul className="space-y-2">
                 {quickLinks.map((link) => (
                   <li key={link.name}>
                     <a
                       href={link.href}
-                      className="text-gray-400 hover:text-white transition-colors duration-300 flex items-center space-x-2"
+                      className="text-gray-400 hover:text-white transition-colors duration-300 flex items-center"
                     >
-                      <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
-                      <span>{link.name}</span>
+                      <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full mr-2"></span>
+                      {link.name}
                     </a>
                   </li>
                 ))}
@@ -82,36 +116,24 @@ const Footer = () => {
               viewport={{ once: true }}
               className="space-y-4"
             >
-              <h3 className="text-xl font-semibold">Connect</h3>
-              <div className="flex space-x-4">
-                {socialLinks.map((social) => (
-                  <a
-                    key={social.name}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-gray-800 p-3 rounded-lg text-gray-400 hover:text-white hover:bg-indigo-600 transition-all duration-300 transform hover:scale-110"
-                  >
-                    <span className="sr-only">{social.name}</span>
-                    <social.icon className="w-5 h-5" />
-                  </a>
+              <h3 className="text-xl font-semibold text-white">Services</h3>
+              <ul className="space-y-3">
+                {services.map((service) => (
+                  <li key={service.name} className="flex items-start space-x-3">
+                    <service.icon className="h-5 w-5 text-indigo-400 mt-0.5" />
+                    <span className="text-gray-400">{service.name}</span>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </motion.div>
           </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          viewport={{ once: true }}
-          className="border-t border-gray-800 py-8"
-        >
+        <div className="border-t border-gray-800 py-8">
           <p className="text-center text-gray-400 text-sm">
-            © {currentYear} Sree Kumar. All rights reserved.
+            &copy; {currentYear} C. Sree Kumar. All rights reserved.
           </p>
-        </motion.div>
+        </div>
       </div>
     </footer>
   );

@@ -1,32 +1,103 @@
 import { motion } from 'framer-motion';
+import { FaGithub, FaExternalLinkAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { useRef, useState, useEffect } from 'react';
 
-const projectsData = [
+interface Project {
+  title: string;
+  description: string;
+  image: string;
+  tags: string[];
+  liveUrl?: string;
+  githubUrl?: string;
+  type: 'professional' | 'personal';
+}
+
+const projectsData: Project[] = [
   {
-    title: 'Social Media Automation',
-    description: 'A comprehensive social media management system I developed that automates email responses, content posting, and email handling. This project streamlines social media operations and maintains consistent brand presence across platforms.',
+    title: 'Custom Software Solutions',
+    description: 'Developed tailored software applications for business clients, integrating frontend interfaces with backend functionality. Created solutions that automated workflows and improved operational efficiency using React.js and Python.',
     image: 'https://images.unsplash.com/photo-1611926653458-09294b3142bf?q=80&w=1170&auto=format&fit=crop',
-    tags: ['Python', 'Automation', 'Social Media APIs', 'Email Integration'],
-    liveUrl: '#'
+    tags: ['React.js', 'Python', 'Automation', 'Frontend Development'],
+    type: 'professional'
   },
   {
-    title: 'AI Voice Proposal Generator',
-    description: 'My innovative AI application that transforms voice or text input into professional business proposals. Users can generate proposals through voice commands or text input, with automatic formatting and email sending capabilities.',
+    title: 'UI Design & Development',
+    description: 'Created UI designs in Figma and implemented them as functional web interfaces using HTML5, CSS3, and JavaScript. Ensured designs were responsive, accessible, and provided optimal user experiences across all devices.',
     image: 'https://images.unsplash.com/photo-1557200134-90327ee9fafa?q=80&w=2070&auto=format&fit=crop',
-    tags: ['Python', 'AI', 'Speech Recognition', 'Email Automation'],
-    liveUrl: '#'
+    tags: ['Figma', 'HTML5', 'CSS3', 'JavaScript', 'Responsive Design'],
+    type: 'professional'
   },
   {
-    title: 'Mobile Application Development',
-    description: 'A React Native mobile app I built with modern UI/UX principles. Implemented features like real-time data processing and offline capabilities. The app demonstrates my expertise in creating responsive and user-friendly mobile experiences.',
+    title: 'Web Scraping Solutions',
+    description: 'Developed web scraping tools to extract and analyze data from various websites. Implemented automated data collection processes that provided valuable insights for business decision-making and market analysis.',
     image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=1974&auto=format&fit=crop',
-    tags: ['React Native', 'TypeScript', 'UI/UX', 'Mobile Development'],
-    liveUrl: '#'
+    tags: ['Python', 'Data Analysis', 'Automation', 'Web Scraping'],
+    type: 'professional'
+  },
+  {
+    title: 'Interactive E-commerce Platform',
+    description: 'Built a responsive e-commerce website using React.js with product filtering, shopping cart functionality, and user authentication. Implemented responsive design principles for seamless viewing across desktop and mobile devices.',
+    image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=1974&auto=format&fit=crop',
+    tags: ['React.js', 'JavaScript', 'CSS3', 'E-commerce', 'Responsive Design'],
+    liveUrl: '#',
+    githubUrl: '#',
+    type: 'personal'
+  },
+  {
+    title: 'Portfolio Website',
+    description: 'Designed and developed a personal portfolio website showcasing projects and skills. Created with HTML5, CSS3, and JavaScript, featuring smooth animations, responsive design, and optimized performance across all devices.',
+    image: 'https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?q=80&w=1170&auto=format&fit=crop',
+    tags: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Design'],
+    liveUrl: 'https://sreekumarcr7.github.io/SreeKumarPortfolio/',
+    githubUrl: 'https://github.com/sreekumarcr7/SreeKumarPortfolio',
+    type: 'personal'
+  },
+  {
+    title: 'Weather Application',
+    description: 'Developed a weather application that fetches real-time data from a weather API. Built with React.js, featuring location-based forecasts, interactive UI elements, and responsive design for both desktop and mobile users.',
+    image: 'https://images.unsplash.com/photo-1592210454359-9043f067919b?q=80&w=1170&auto=format&fit=crop',
+    tags: ['React.js', 'API Integration', 'JavaScript', 'Weather Data'],
+    liveUrl: '#',
+    githubUrl: '#',
+    type: 'personal'
   },
 ];
 
 const Projects = () => {
+  // Limit to 3 projects per section
+  const professionalProjects = projectsData.filter(project => project.type === 'professional').slice(0, 3);
+  const personalProjects = projectsData.filter(project => project.type === 'personal').slice(0, 3);
+  
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [showLeftArrow, setShowLeftArrow] = useState(false);
+  const [showRightArrow, setShowRightArrow] = useState(true);
+
+  const handleScroll = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      setShowLeftArrow(scrollLeft > 0);
+      setShowRightArrow(scrollLeft < scrollWidth - clientWidth - 10);
+    }
+  };
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollContainerRef.current) {
+      const { clientWidth } = scrollContainerRef.current;
+      const scrollAmount = direction === 'left' ? -clientWidth / 2 : clientWidth / 2;
+      scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
+
+  useEffect(() => {
+    // Check if we need to show right arrow initially
+    if (scrollContainerRef.current) {
+      const { scrollWidth, clientWidth } = scrollContainerRef.current;
+      setShowRightArrow(scrollWidth > clientWidth);
+    }
+  }, []);
+
   return (
-    <section id="projects" className="py-20 bg-white">
+    <section id="projects" className="py-20 bg-gradient-to-b from-white to-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -36,77 +107,153 @@ const Projects = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold text-gray-900 mb-4">My Projects</h2>
-          <div className="w-20 h-1 bg-indigo-600 mx-auto"></div>
+          <div className="w-24 h-1.5 bg-indigo-600 mx-auto rounded-full mb-6"></div>
           <p className="mt-6 text-lg text-gray-600 max-w-2xl mx-auto">
-            Here are some of the key projects I've developed, showcasing my skills in automation, AI integration, and mobile app development
+            A showcase of my professional and personal projects, demonstrating my skills in frontend development, UI/UX design, and more
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projectsData.map((project, index) => (
-            <motion.div
-              key={project.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-              viewport={{ once: true }}
-              className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 flex flex-col"
+        {/* Professional Projects */}
+        <div className="mb-16">
+          <motion.h3
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="text-2xl font-bold text-gray-900 mb-8 border-l-4 border-indigo-600 pl-4"
+          >
+            Professional Projects
+          </motion.h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {professionalProjects.map((project, index) => (
+              <ProjectCard key={project.title} project={project} index={index} />
+            ))}
+          </div>
+        </div>
+
+        {/* Personal Projects */}
+        <div>
+          <motion.h3
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="text-2xl font-bold text-gray-900 mb-8 border-l-4 border-indigo-600 pl-4"
+          >
+            Personal Projects
+          </motion.h3>
+          
+          <div className="relative">
+            {/* Left scroll button */}
+            {showLeftArrow && (
+              <button 
+                onClick={() => scroll('left')}
+                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white rounded-full p-2 shadow-lg text-indigo-600 hover:text-indigo-800 hover:shadow-xl transition-all duration-300"
+                aria-label="Scroll left"
+              >
+                <FaChevronLeft className="w-5 h-5" />
+              </button>
+            )}
+            
+            {/* Right scroll button */}
+            {showRightArrow && (
+              <button 
+                onClick={() => scroll('right')}
+                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white rounded-full p-2 shadow-lg text-indigo-600 hover:text-indigo-800 hover:shadow-xl transition-all duration-300"
+                aria-label="Scroll right"
+              >
+                <FaChevronRight className="w-5 h-5" />
+              </button>
+            )}
+            
+            {/* Scrollable container */}
+            <div 
+              ref={scrollContainerRef}
+              onScroll={handleScroll}
+              className="flex overflow-x-auto pb-8 scrollbar-hide snap-x snap-mandatory scroll-smooth"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
-              <div className="relative overflow-hidden group">
-                <div className="aspect-w-16 aspect-h-9">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="object-cover w-full h-48 transform transition-transform duration-300 group-hover:scale-110 filter brightness-95 contrast-105"
-                  />
+              <style>
+                {`
+                  .scrollbar-hide::-webkit-scrollbar {
+                    display: none;
+                  }
+                `}
+              </style>
+              
+              {personalProjects.map((project, index) => (
+                <div key={project.title} className="min-w-[300px] md:min-w-[350px] lg:min-w-[380px] px-4 snap-start">
+                  <ProjectCard project={project} index={index} />
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 backdrop-blur-sm bg-black/30">
-                  <h4 className="text-lg font-semibold">{project.title}</h4>
-                </div>
-              </div>
-              <div className="p-6 flex-1 flex flex-col">
-                <h3 className="text-2xl font-semibold text-gray-900 mb-2">{project.title}</h3>
-                <p className="text-gray-600 mb-4 flex-1 min-h-[100px]">{project.description}</p>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-3 py-1 bg-indigo-100 text-indigo-600 rounded-full text-sm"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <div className="mt-auto">
-                  <button
-                    className="w-full inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors duration-300"
-                    onClick={() => {
-                      alert('Portfolio details will be updated soon!');
-                    }}
-                  >
-                    View Project Details
-                    <svg
-                      className="ml-2 -mr-1 h-4 w-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M13 7l5 5m0 0l-5 5m5-5H6"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
+  );
+};
+
+interface ProjectCardProps {
+  project: Project;
+  index: number;
+}
+
+const ProjectCard = ({ project, index }: ProjectCardProps) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      viewport={{ once: true }}
+      className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 h-full flex flex-col"
+    >
+      <div className="relative h-48 overflow-hidden">
+        <img
+          src={project.image}
+          alt={project.title}
+          className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+        />
+      </div>
+      <div className="p-6 flex-grow flex flex-col">
+        <h3 className="text-xl font-bold text-gray-900 mb-2">{project.title}</h3>
+        <p className="text-gray-600 mb-4 flex-grow line-clamp-4">{project.description}</p>
+        <div className="flex flex-wrap gap-2 mb-4">
+          {project.tags.slice(0, 4).map((tag) => (
+            <span
+              key={tag}
+              className="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-xs font-medium"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+        <div className="flex space-x-3 mt-auto">
+          {project.githubUrl && (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center text-gray-700 hover:text-indigo-600 transition-colors"
+            >
+              <FaGithub className="mr-1" />
+              <span>Code</span>
+            </a>
+          )}
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center text-gray-700 hover:text-indigo-600 transition-colors"
+            >
+              <FaExternalLinkAlt className="mr-1" />
+              <span>Live Demo</span>
+            </a>
+          )}
+        </div>
+      </div>
+    </motion.div>
   );
 };
 

@@ -1,91 +1,210 @@
-import { useState } from 'react';
-import { Link } from 'react-scroll';
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { HiOutlineMenuAlt3, HiX } from 'react-icons/hi';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('hero');
+  const menuRef = useRef<HTMLDivElement>(null);
 
-  const menuItems = [
-    { title: 'Home', to: 'hero' },
-    { title: 'About', to: 'about' },
-    { title: 'Skills', to: 'skills' },
-    { title: 'Projects', to: 'projects' },
-    { title: 'Contact', to: 'contact' },
+  useEffect(() => {
+    const handleScroll = () => {
+      const offset = window.scrollY;
+      if (offset > 50) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+
+      // Update active section based on scroll position
+      const sections = document.querySelectorAll('section[id], div[id="hero"]');
+      sections.forEach((section) => {
+        const sectionTop = (section as HTMLElement).offsetTop - 100;
+        const sectionHeight = (section as HTMLElement).offsetHeight;
+        const sectionId = section.getAttribute('id') || '';
+        
+        if (offset >= sectionTop && offset < sectionTop + sectionHeight) {
+          setActiveSection(sectionId);
+        }
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    
+    // Close menu when clicking outside
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isOpen && menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    
+    // Close menu on escape key
+    const handleEscKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isOpen) {
+        setIsOpen(false);
+      }
+    };
+    
+    document.addEventListener('keydown', handleEscKey);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscKey);
+    };
+  }, [isOpen]);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
+
+  const navLinks = [
+    { name: 'Home', href: '#hero' },
+    { name: 'About', href: '#about' },
+    { name: 'Skills', href: '#skills' },
+    { name: 'Projects', href: '#projects' },
+    { name: 'Achievements', href: '#achievements' },
+    { name: 'Interests', href: '#interests' },
+    { name: 'Contact', href: '#contact' },
   ];
 
   return (
-    <nav className="fixed w-full bg-white shadow-lg z-50">
+    <nav
+      className={`fixed w-full z-50 transition-all duration-300 ${
+        scrolled
+          ? 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-lg py-3'
+          : 'bg-transparent py-5'
+      }`}
+      aria-label="Main navigation"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex-shrink-0 flex items-center">
-            <h1 className="text-2xl font-bold text-indigo-600">Portfolio</h1>
-          </div>
-          
-          {/* Desktop menu */}
-          <div className="hidden md:flex items-center space-x-8">
-            {menuItems.map((item) => (
-              <Link
-                key={item.to}
-                to={item.to}
-                spy={true}
-                smooth={true}
-                offset={-70}
-                duration={500}
-                className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium cursor-pointer"
+        <div className="flex justify-between items-center">
+          {/* Logo */}
+          <motion.a
+            href="#hero"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex items-center space-x-2"
+            onClick={closeMenu}
+            aria-label="Go to home section"
+          >
+            <span className="text-2xl font-bold bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent">
+              C. Sree Kumar
+            </span>
+          </motion.a>
+
+          {/* Desktop Navigation */}
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="hidden md:flex space-x-1"
+            role="navigation"
+            aria-label="Desktop navigation"
+          >
+            {navLinks.map((link, index) => (
+              <a
+                key={link.name}
+                href={link.href}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                  activeSection === link.href.substring(1)
+                    ? 'text-indigo-600 bg-indigo-50 dark:text-indigo-400 dark:bg-gray-800'
+                    : scrolled
+                    ? 'text-gray-700 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white'
+                    : 'text-gray-800 hover:text-indigo-600 dark:text-gray-200 dark:hover:text-white'
+                } hover:bg-gray-100/80 dark:hover:bg-gray-800/50`}
+                aria-current={activeSection === link.href.substring(1) ? 'page' : undefined}
               >
-                {item.title}
-              </Link>
+                {link.name}
+              </a>
             ))}
-          </div>
+            <a
+              href="#contact"
+              className="ml-2 px-5 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg text-sm font-medium hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5"
+              aria-label="Hire me - Contact section"
+            >
+              Hire Me
+            </a>
+          </motion.div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
+          {/* Mobile Menu Button */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+            className="md:hidden"
+          >
             <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-indigo-600 focus:outline-none"
+              onClick={toggleMenu}
+              className={`p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
+                scrolled
+                  ? 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
+                  : 'text-gray-800 hover:bg-gray-100/30 dark:text-gray-200 dark:hover:bg-gray-800/30'
+              }`}
+              aria-label={isOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu"
             >
-              <span className="sr-only">Open main menu</span>
-              <svg
-                className={`${isOpen ? 'hidden' : 'block'} h-6 w-6`}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-              <svg
-                className={`${isOpen ? 'block' : 'hidden'} h-6 w-6`}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
+              {isOpen ? (
+                <HiX className="h-6 w-6" />
+              ) : (
+                <HiOutlineMenuAlt3 className="h-6 w-6" />
+              )}
             </button>
-          </div>
+          </motion.div>
         </div>
       </div>
 
-      {/* Mobile menu */}
-      <div className={`${isOpen ? 'block' : 'hidden'} md:hidden bg-white`}>
-        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-          {menuItems.map((item) => (
-            <Link
-              key={item.to}
-              to={item.to}
-              spy={true}
-              smooth={true}
-              offset={-70}
-              duration={500}
-              className="text-gray-700 hover:text-indigo-600 block px-3 py-2 text-base font-medium cursor-pointer"
-              onClick={() => setIsOpen(false)}
-            >
-              {item.title}
-            </Link>
-          ))}
-        </div>
-      </div>
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            ref={menuRef}
+            id="mobile-menu"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg overflow-hidden"
+            role="navigation"
+            aria-label="Mobile navigation"
+          >
+            <div className="px-4 py-5 space-y-3">
+              {navLinks.map((link, index) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={closeMenu}
+                  className={`block px-4 py-3 rounded-lg transition-all duration-300 ${
+                    activeSection === link.href.substring(1)
+                      ? 'text-indigo-600 bg-indigo-50 dark:text-indigo-400 dark:bg-gray-800'
+                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-indigo-600 dark:hover:text-white'
+                  }`}
+                  aria-current={activeSection === link.href.substring(1) ? 'page' : undefined}
+                >
+                  {link.name}
+                </a>
+              ))}
+              <a
+                href="#contact"
+                onClick={closeMenu}
+                className="block px-4 py-3 mt-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg font-medium hover:shadow-lg transition-all duration-300"
+                aria-label="Hire me - Contact section"
+              >
+                Hire Me
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };

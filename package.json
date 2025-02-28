@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://SreeKumarCr7.github.io/portfolio",
+  "homepage": "https://SreeKumarCr7.github.io/SreeKumarPortfolio",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -13,6 +13,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@headlessui/react": "^2.2.0",
     "@tailwindcss/typography": "^0.5.16",
     "react": "^18.2.0",
