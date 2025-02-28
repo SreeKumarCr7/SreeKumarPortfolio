@@ -5,38 +5,52 @@ interface Interest {
   name: string;
   icon: React.ReactNode;
   description: string;
+  color: string;
+  borderColor: string;
 }
 
 const interestsData: Interest[] = [
   {
     name: 'Web Development',
-    icon: <FaLaptopCode className="w-10 h-10 text-indigo-500" />,
-    description: 'Building responsive and interactive web applications using modern frameworks and technologies'
+    icon: <FaLaptopCode className="w-10 h-10" />,
+    description: 'Building responsive and interactive web applications using modern frameworks and technologies',
+    color: 'text-indigo-600',
+    borderColor: 'border-indigo-600',
   },
   {
     name: 'Data Visualization',
-    icon: <FaChartBar className="w-10 h-10 text-blue-500" />,
-    description: 'Creating intuitive and informative data visualizations to communicate complex information'
+    icon: <FaChartBar className="w-10 h-10" />,
+    description: 'Creating intuitive and informative data visualizations to communicate complex information',
+    color: 'text-blue-600',
+    borderColor: 'border-blue-600',
   },
   {
     name: 'UI/UX Design',
-    icon: <FaPaintBrush className="w-10 h-10 text-purple-500" />,
-    description: 'Designing user-friendly interfaces that provide exceptional user experiences'
+    icon: <FaPaintBrush className="w-10 h-10" />,
+    description: 'Designing user-friendly interfaces that provide exceptional user experiences',
+    color: 'text-purple-600',
+    borderColor: 'border-purple-600',
   },
   {
     name: 'Frontend Frameworks',
-    icon: <FaReact className="w-10 h-10 text-teal-500" />,
-    description: 'Exploring and mastering modern frontend frameworks and libraries'
+    icon: <FaReact className="w-10 h-10" />,
+    description: 'Exploring and mastering modern frontend frameworks and libraries',
+    color: 'text-teal-600',
+    borderColor: 'border-teal-600',
   },
   {
     name: 'Automation',
-    icon: <FaRobot className="w-10 h-10 text-green-500" />,
-    description: 'Developing automated solutions to streamline workflows and improve efficiency'
+    icon: <FaRobot className="w-10 h-10" />,
+    description: 'Developing automated solutions to streamline workflows and improve efficiency',
+    color: 'text-green-600',
+    borderColor: 'border-green-600',
   },
   {
     name: 'Web Scraping',
-    icon: <FaSearchengin className="w-10 h-10 text-orange-500" />,
-    description: 'Extracting and analyzing data from websites to generate valuable insights'
+    icon: <FaSearchengin className="w-10 h-10" />,
+    description: 'Extracting and analyzing data from websites to generate valuable insights',
+    color: 'text-orange-600',
+    borderColor: 'border-orange-600',
   }
 ];
 
@@ -58,7 +72,7 @@ const Interests = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {interestsData.map((interest, index) => (
             <motion.div
               key={interest.name}
@@ -66,13 +80,15 @@ const Interests = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:transform hover:-translate-y-1 border border-gray-100"
+              className={`bg-white p-6 sm:p-8 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 
+                hover:-translate-y-2 border-2 ${interest.borderColor} relative overflow-hidden`}
             >
-              <div className="flex flex-col items-center text-center">
-                <div className="mb-4 p-4 bg-indigo-50 rounded-full">
+              <div className="absolute top-0 right-0 w-24 h-24 -mr-8 -mt-8 bg-gray-50 rounded-full opacity-20"></div>
+              <div className="flex flex-col items-center text-center relative z-10">
+                <div className={`mb-5 p-4 rounded-full ${interest.color}`}>
                   {interest.icon}
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{interest.name}</h3>
+                <h3 className={`text-xl font-bold mb-3 ${interest.color}`}>{interest.name}</h3>
                 <p className="text-gray-600">{interest.description}</p>
               </div>
             </motion.div>

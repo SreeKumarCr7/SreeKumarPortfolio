@@ -71,6 +71,8 @@ const Projects = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
 
   const handleScroll = () => {
     if (scrollContainerRef.current) {
@@ -91,6 +93,16 @@ const Projects = () => {
         : (isMobile ? clientWidth : clientWidth / 2);
         
       scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
+
+  const handleProjectLinkClick = (e: React.MouseEvent, type: string) => {
+    // For demo links that aren't ready yet
+    if (e.currentTarget.getAttribute('href') === '#') {
+      e.preventDefault();
+      setToastMessage(`${type} will be updated soon!`);
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3000);
     }
   };
 
@@ -121,33 +133,42 @@ const Projects = () => {
 
         {/* Professional Projects */}
         <div className="mb-16">
-          <motion.h3
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="text-2xl font-bold text-gray-900 mb-8 border-l-4 border-indigo-600 pl-4"
+            className="mb-8"
           >
-            Professional Projects
-          </motion.h3>
+            <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 border-l-4 border-indigo-600 pl-4 py-2 bg-gray-50 rounded-r-lg shadow-sm">
+              Professional Projects
+            </h3>
+          </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {professionalProjects.map((project, index) => (
-              <ProjectCard key={project.title} project={project} index={index} />
+              <ProjectCard 
+                key={project.title} 
+                project={project} 
+                index={index} 
+                onLinkClick={handleProjectLinkClick} 
+              />
             ))}
           </div>
         </div>
 
         {/* Personal Projects */}
         <div>
-          <motion.h3
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="text-2xl font-bold text-gray-900 mb-8 border-l-4 border-indigo-600 pl-4"
+            className="mb-8"
           >
-            Personal Projects
-          </motion.h3>
+            <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 border-l-4 border-indigo-600 pl-4 py-2 bg-gray-50 rounded-r-lg shadow-sm">
+              Personal Projects
+            </h3>
+          </motion.div>
           
           <div className="relative">
             {/* Left scroll button */}
@@ -189,13 +210,43 @@ const Projects = () => {
               
               {personalProjects.map((project, index) => (
                 <div key={project.title} className="w-full sm:min-w-[300px] md:min-w-[350px] lg:min-w-[380px] px-2 sm:px-4 snap-start mobile-full-width">
-                  <ProjectCard project={project} index={index} />
+                  <ProjectCard 
+                    project={project} 
+                    index={index} 
+                    onLinkClick={handleProjectLinkClick} 
+                    isPersonal={true} 
+                  />
                 </div>
               ))}
             </div>
           </div>
         </div>
       </div>
+
+      {/* Toast notification */}
+      {showToast && (
+        <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-fade-in-up">
+          {toastMessage}
+        </div>
+      )}
+
+      <style>
+        {`
+          @keyframes fadeInUp {
+            from {
+              opacity: 0;
+              transform: translate(-50%, 20px);
+            }
+            to {
+              opacity: 1;
+              transform: translate(-50%, 0);
+            }
+          }
+          .animate-fade-in-up {
+            animation: fadeInUp 0.3s ease-out forwards;
+          }
+        `}
+      </style>
     </section>
   );
 };
@@ -203,9 +254,11 @@ const Projects = () => {
 interface ProjectCardProps {
   project: Project;
   index: number;
+  onLinkClick: (e: React.MouseEvent, type: string) => void;
+  isPersonal?: boolean;
 }
 
-const ProjectCard = ({ project, index }: ProjectCardProps) => {
+const ProjectCard = ({ project, index, onLinkClick, isPersonal = false }: ProjectCardProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -214,7 +267,7 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
       viewport={{ once: true }}
       className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 h-full flex flex-col"
     >
-      <div className="relative h-48 sm:h-48 overflow-hidden">
+      <div className={`relative ${isPersonal ? 'h-56 sm:h-60' : 'h-48 sm:h-48'} overflow-hidden`}>
         <img
           src={project.image}
           alt={project.title}
@@ -241,6 +294,7 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center text-gray-700 hover:text-indigo-600 transition-colors"
+              onClick={(e) => onLinkClick(e, 'GitHub repository')}
             >
               <FaGithub className="mr-1" />
               <span>Code</span>
@@ -252,6 +306,7 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center text-gray-700 hover:text-indigo-600 transition-colors"
+              onClick={(e) => onLinkClick(e, 'Live demo')}
             >
               <FaExternalLinkAlt className="mr-1" />
               <span>Live Demo</span>
