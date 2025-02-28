@@ -276,7 +276,7 @@ const ProjectCard = ({ project, index, onLinkClick, isPersonal = false }: Projec
       </div>
       <div className="p-5 sm:p-6 flex-grow flex flex-col">
         <h3 className="text-xl font-bold text-gray-900 mb-2">{project.title}</h3>
-        <p className="text-gray-600 mb-4 flex-grow line-clamp-4">{project.description}</p>
+        <p className={`text-gray-600 mb-4 flex-grow ${isPersonal ? 'line-clamp-6 min-h-[120px]' : 'line-clamp-4'}`}>{project.description}</p>
         <div className="flex flex-wrap gap-2 mb-4">
           {project.tags.slice(0, 4).map((tag) => (
             <span

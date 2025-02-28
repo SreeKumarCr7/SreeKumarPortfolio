@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { FaLinkedinIn, FaGithub, FaCode, FaLaptopCode, FaReact } from 'react-icons/fa';
+import { FaLinkedinIn, FaGithub, FaCode, FaLaptopCode, FaReact, FaInstagram } from 'react-icons/fa';
 import { HiMail, HiPhone, HiLocationMarker } from 'react-icons/hi';
 
 const Footer = () => {
@@ -15,6 +15,11 @@ const Footer = () => {
       name: 'GitHub',
       icon: FaGithub,
       url: 'https://github.com/sreekumarcr7',
+    },
+    {
+      name: 'Instagram',
+      icon: FaInstagram,
+      url: 'https://www.instagram.com/mr_._._consistent7/',
     },
   ];
 
@@ -52,7 +57,7 @@ const Footer = () => {
               <p className="text-gray-400 leading-relaxed">
                 A passionate Frontend Developer focused on creating responsive and user-friendly web applications with modern technologies.
               </p>
-              <div className="flex space-x-4 pt-4">
+              <div className="flex justify-center space-x-4 pt-4">
                 {socialLinks.map((link) => (
                   <a
                     key={link.name}
