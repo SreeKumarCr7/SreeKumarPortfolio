@@ -97,34 +97,34 @@ const Projects = () => {
   }, []);
 
   return (
-    <section id="projects" className="py-12 sm:py-16 md:py-20 bg-gradient-to-b from-white to-gray-50">
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+    <section id="projects" className="py-20 bg-gradient-to-b from-white to-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-center mb-10 sm:mb-16"
+          className="text-center mb-16"
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">My Projects</h2>
-          <div className="w-20 sm:w-24 h-1.5 bg-indigo-600 mx-auto rounded-full mb-4 sm:mb-6"></div>
-          <p className="mt-4 sm:mt-6 text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-2">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">My Projects</h2>
+          <div className="w-24 h-1.5 bg-indigo-600 mx-auto rounded-full mb-6"></div>
+          <p className="mt-6 text-lg text-gray-600 max-w-2xl mx-auto">
             A showcase of my professional and personal projects, demonstrating my skills in frontend development, UI/UX design, and more
           </p>
         </motion.div>
 
         {/* Professional Projects */}
-        <div className="mb-10 sm:mb-16">
+        <div className="mb-16">
           <motion.h3
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="text-xl sm:text-2xl font-bold text-gray-900 mb-6 sm:mb-8 border-l-4 border-indigo-600 pl-3 sm:pl-4"
+            className="text-2xl font-bold text-gray-900 mb-8 border-l-4 border-indigo-600 pl-4"
           >
             Professional Projects
           </motion.h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {professionalProjects.map((project, index) => (
               <ProjectCard key={project.title} project={project} index={index} />
             ))}
@@ -138,7 +138,7 @@ const Projects = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="text-xl sm:text-2xl font-bold text-gray-900 mb-6 sm:mb-8 border-l-4 border-indigo-600 pl-3 sm:pl-4"
+            className="text-2xl font-bold text-gray-900 mb-8 border-l-4 border-indigo-600 pl-4"
           >
             Personal Projects
           </motion.h3>
@@ -148,10 +148,10 @@ const Projects = () => {
             {showLeftArrow && (
               <button 
                 onClick={() => scroll('left')}
-                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-4 z-10 bg-white rounded-full p-1.5 sm:p-2 shadow-lg text-indigo-600 hover:text-indigo-800 hover:shadow-xl transition-all duration-300"
+                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white rounded-full p-2 shadow-lg text-indigo-600 hover:text-indigo-800 hover:shadow-xl transition-all duration-300"
                 aria-label="Scroll left"
               >
-                <FaChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+                <FaChevronLeft className="w-5 h-5" />
               </button>
             )}
             
@@ -159,10 +159,10 @@ const Projects = () => {
             {showRightArrow && (
               <button 
                 onClick={() => scroll('right')}
-                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-4 z-10 bg-white rounded-full p-1.5 sm:p-2 shadow-lg text-indigo-600 hover:text-indigo-800 hover:shadow-xl transition-all duration-300"
+                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white rounded-full p-2 shadow-lg text-indigo-600 hover:text-indigo-800 hover:shadow-xl transition-all duration-300"
                 aria-label="Scroll right"
               >
-                <FaChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                <FaChevronRight className="w-5 h-5" />
               </button>
             )}
             
@@ -170,7 +170,7 @@ const Projects = () => {
             <div 
               ref={scrollContainerRef}
               onScroll={handleScroll}
-              className="flex overflow-x-auto pb-6 sm:pb-8 scrollbar-hide snap-x snap-mandatory scroll-smooth px-1"
+              className="flex overflow-x-auto pb-8 scrollbar-hide snap-x snap-mandatory scroll-smooth"
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
               <style>
@@ -182,7 +182,7 @@ const Projects = () => {
               </style>
               
               {personalProjects.map((project, index) => (
-                <div key={project.title} className="min-w-[260px] w-[85vw] sm:w-[75vw] md:w-[45vw] lg:w-[30vw] px-2 sm:px-3 snap-start">
+                <div key={project.title} className="min-w-[280px] sm:min-w-[300px] md:min-w-[350px] lg:min-w-[380px] px-2 sm:px-4 snap-start">
                   <ProjectCard project={project} index={index} />
                 </div>
               ))}
@@ -208,21 +208,21 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
       viewport={{ once: true }}
       className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 h-full flex flex-col"
     >
-      <div className="relative h-36 sm:h-40 md:h-48 overflow-hidden">
+      <div className="relative h-40 sm:h-48 overflow-hidden">
         <img
           src={project.image}
           alt={project.title}
           className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
         />
       </div>
-      <div className="p-3 sm:p-4 md:p-6 flex-grow flex flex-col">
-        <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 mb-1 sm:mb-2">{project.title}</h3>
-        <p className="text-xs sm:text-sm md:text-base text-gray-600 mb-3 sm:mb-4 flex-grow line-clamp-4">{project.description}</p>
-        <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-4">
+      <div className="p-4 sm:p-6 flex-grow flex flex-col">
+        <h3 className="text-xl font-bold text-gray-900 mb-2">{project.title}</h3>
+        <p className="text-gray-600 mb-4 flex-grow line-clamp-4">{project.description}</p>
+        <div className="flex flex-wrap gap-2 mb-4">
           {project.tags.slice(0, 4).map((tag) => (
             <span
               key={tag}
-              className="px-2 py-0.5 sm:py-1 bg-indigo-50 text-indigo-700 rounded-full text-xs font-medium"
+              className="px-2 sm:px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-xs font-medium"
             >
               {tag}
             </span>
@@ -234,7 +234,7 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center text-xs sm:text-sm md:text-base text-gray-700 hover:text-indigo-600 transition-colors"
+              className="flex items-center text-gray-700 hover:text-indigo-600 transition-colors"
             >
               <FaGithub className="mr-1" />
               <span>Code</span>
@@ -245,7 +245,7 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center text-xs sm:text-sm md:text-base text-gray-700 hover:text-indigo-600 transition-colors"
+              className="flex items-center text-gray-700 hover:text-indigo-600 transition-colors"
             >
               <FaExternalLinkAlt className="mr-1" />
               <span>Live Demo</span>

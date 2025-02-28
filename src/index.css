@@ -15,6 +15,37 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Responsive text sizing */
+@media (max-width: 640px) {
+  html {
+    font-size: 14px;
+  }
+  
+  h1, .text-4xl {
+    font-size: 1.75rem !important;
+  }
+  
+  h2, .text-3xl {
+    font-size: 1.5rem !important;
+  }
+  
+  h3, .text-2xl {
+    font-size: 1.25rem !important;
+  }
+  
+  h4, .text-xl {
+    font-size: 1.125rem !important;
+  }
+  
+  p, .text-base {
+    font-size: 1rem !important;
+  }
+  
+  .text-sm {
+    font-size: 0.875rem !important;
+  }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

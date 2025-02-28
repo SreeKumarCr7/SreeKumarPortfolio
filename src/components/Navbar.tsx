@@ -79,12 +79,12 @@ const Navbar = () => {
     <nav
       className={`fixed w-full z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-lg py-2'
-          : 'bg-transparent py-3'
+          ? 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-lg py-3'
+          : 'bg-transparent py-5'
       }`}
       aria-label="Main navigation"
     >
-      <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           {/* Logo */}
           <motion.a
@@ -96,7 +96,7 @@ const Navbar = () => {
             onClick={closeMenu}
             aria-label="Go to home section"
           >
-            <span className="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent truncate max-w-[180px] sm:max-w-none">
+            <span className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text text-transparent">
               C. Sree Kumar
             </span>
           </motion.a>
@@ -114,7 +114,7 @@ const Navbar = () => {
               <a
                 key={link.name}
                 href={link.href}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                className={`px-3 sm:px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
                   activeSection === link.href.substring(1)
                     ? 'text-indigo-600 bg-indigo-50 dark:text-indigo-400 dark:bg-gray-800'
                     : scrolled
@@ -128,7 +128,7 @@ const Navbar = () => {
             ))}
             <a
               href="#contact"
-              className="ml-2 px-5 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg text-sm font-medium hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5"
+              className="ml-2 px-4 sm:px-5 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg text-sm font-medium hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5"
               aria-label="Hire me - Contact section"
             >
               Hire Me
@@ -154,9 +154,9 @@ const Navbar = () => {
               aria-controls="mobile-menu"
             >
               {isOpen ? (
-                <HiX className="h-5 w-5 sm:h-6 sm:w-6" />
+                <HiX className="h-6 w-6" />
               ) : (
-                <HiOutlineMenuAlt3 className="h-5 w-5 sm:h-6 sm:w-6" />
+                <HiOutlineMenuAlt3 className="h-6 w-6" />
               )}
             </button>
           </motion.div>
@@ -177,13 +177,13 @@ const Navbar = () => {
             role="navigation"
             aria-label="Mobile navigation"
           >
-            <div className="px-4 py-5 space-y-3">
+            <div className="px-4 py-3 space-y-2">
               {navLinks.map((link, index) => (
                 <a
                   key={link.name}
                   href={link.href}
                   onClick={closeMenu}
-                  className={`block px-4 py-3 rounded-lg transition-all duration-300 ${
+                  className={`block px-4 py-2 rounded-lg transition-all duration-300 ${
                     activeSection === link.href.substring(1)
                       ? 'text-indigo-600 bg-indigo-50 dark:text-indigo-400 dark:bg-gray-800'
                       : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-indigo-600 dark:hover:text-white'
@@ -196,7 +196,7 @@ const Navbar = () => {
               <a
                 href="#contact"
                 onClick={closeMenu}
-                className="block px-4 py-3 mt-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg font-medium hover:shadow-lg transition-all duration-300"
+                className="block px-4 py-2 mt-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg font-medium hover:shadow-lg transition-all duration-300"
                 aria-label="Hire me - Contact section"
               >
                 Hire Me

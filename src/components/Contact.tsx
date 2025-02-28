@@ -304,9 +304,6 @@ const Contact = () => {
               >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                      Your Name
-                    </label>
                     <input
                       type="text"
                       id="name"
@@ -314,7 +311,7 @@ const Contact = () => {
                       value={formData.name}
                       onChange={handleChange}
                       className={`w-full px-4 py-3 rounded-lg border ${formErrors.name ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-indigo-500 focus:border-indigo-500'} bg-white text-gray-900 transition-colors duration-300`}
-                      placeholder="enter your name"
+                      placeholder="Your Name"
                       disabled={status === 'submitting'}
                     />
                     {formErrors.name && (
@@ -322,9 +319,6 @@ const Contact = () => {
                     )}
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                      Your Email
-                    </label>
                     <input
                       type="email"
                       id="email"
@@ -332,7 +326,7 @@ const Contact = () => {
                       value={formData.email}
                       onChange={handleChange}
                       className={`w-full px-4 py-3 rounded-lg border ${formErrors.email ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-indigo-500 focus:border-indigo-500'} bg-white text-gray-900 transition-colors duration-300`}
-                      placeholder="enter your mail"
+                      placeholder="Your Email Address"
                       disabled={status === 'submitting'}
                     />
                     {formErrors.email && (
@@ -341,9 +335,6 @@ const Contact = () => {
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
-                    Subject
-                  </label>
                   <input
                     type="text"
                     id="subject"
@@ -351,7 +342,7 @@ const Contact = () => {
                     value={formData.subject}
                     onChange={handleChange}
                     className={`w-full px-4 py-3 rounded-lg border ${formErrors.subject ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-indigo-500 focus:border-indigo-500'} bg-white text-gray-900 transition-colors duration-300`}
-                    placeholder="How can I help you?"
+                    placeholder="Subject"
                     disabled={status === 'submitting'}
                   />
                   {formErrors.subject && (
@@ -359,9 +350,6 @@ const Contact = () => {
                   )}
                 </div>
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                    Message
-                  </label>
                   <textarea
                     id="message"
                     name="message"
@@ -369,7 +357,7 @@ const Contact = () => {
                     onChange={handleChange}
                     rows={5}
                     className={`w-full px-4 py-3 rounded-lg border ${formErrors.message ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : 'border-gray-300 focus:ring-indigo-500 focus:border-indigo-500'} bg-white text-gray-900 transition-colors duration-300`}
-                    placeholder="Your message here..."
+                    placeholder="Your Message"
                     disabled={status === 'submitting'}
                   ></textarea>
                   {formErrors.message && (
