@@ -18,31 +18,42 @@ body {
 /* Responsive text sizing */
 @media (max-width: 640px) {
   html {
-    font-size: 14px;
+    font-size: 14px !important;
   }
   
-  h1, .text-4xl {
+  h1, .text-4xl, h1.text-4xl, div.text-4xl, span.text-4xl {
     font-size: 1.75rem !important;
+    line-height: 2.25rem !important;
   }
   
-  h2, .text-3xl {
+  h2, .text-3xl, h2.text-3xl, div.text-3xl, span.text-3xl {
     font-size: 1.5rem !important;
+    line-height: 2rem !important;
   }
   
-  h3, .text-2xl {
+  h3, .text-2xl, h3.text-2xl, div.text-2xl, span.text-2xl {
     font-size: 1.25rem !important;
+    line-height: 1.75rem !important;
   }
   
-  h4, .text-xl {
+  h4, .text-xl, h4.text-xl, div.text-xl, span.text-xl {
     font-size: 1.125rem !important;
+    line-height: 1.5rem !important;
   }
   
-  p, .text-base {
+  p, .text-base, p.text-base, div.text-base, span.text-base {
     font-size: 1rem !important;
+    line-height: 1.5rem !important;
   }
   
-  .text-sm {
+  .text-sm, div.text-sm, span.text-sm {
     font-size: 0.875rem !important;
+    line-height: 1.25rem !important;
+  }
+  
+  .text-lg, div.text-lg, span.text-lg, p.text-lg {
+    font-size: 1.125rem !important;
+    line-height: 1.75rem !important;
   }
 }
 
@@ -90,4 +101,13 @@ body {
 
 .animation-delay-4000 {
   animation-delay: 4s;
+}
+
+/* Mobile-specific overrides */
+@media (max-width: 640px) {
+  .mobile-full-width {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+  }
 }

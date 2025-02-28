@@ -83,7 +83,13 @@ const Projects = () => {
   const scroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
       const { clientWidth } = scrollContainerRef.current;
-      const scrollAmount = direction === 'left' ? -clientWidth / 2 : clientWidth / 2;
+      const isMobile = window.innerWidth < 640;
+      
+      // On mobile, scroll one full project at a time
+      const scrollAmount = direction === 'left' 
+        ? (isMobile ? -clientWidth : -clientWidth / 2) 
+        : (isMobile ? clientWidth : clientWidth / 2);
+        
       scrollContainerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
@@ -182,7 +188,7 @@ const Projects = () => {
               </style>
               
               {personalProjects.map((project, index) => (
-                <div key={project.title} className="min-w-[280px] sm:min-w-[300px] md:min-w-[350px] lg:min-w-[380px] px-2 sm:px-4 snap-start">
+                <div key={project.title} className="w-full sm:min-w-[300px] md:min-w-[350px] lg:min-w-[380px] px-2 sm:px-4 snap-start mobile-full-width">
                   <ProjectCard project={project} index={index} />
                 </div>
               ))}
@@ -208,14 +214,14 @@ const ProjectCard = ({ project, index }: ProjectCardProps) => {
       viewport={{ once: true }}
       className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 h-full flex flex-col"
     >
-      <div className="relative h-40 sm:h-48 overflow-hidden">
+      <div className="relative h-48 sm:h-48 overflow-hidden">
         <img
           src={project.image}
           alt={project.title}
           className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
         />
       </div>
-      <div className="p-4 sm:p-6 flex-grow flex flex-col">
+      <div className="p-5 sm:p-6 flex-grow flex flex-col">
         <h3 className="text-xl font-bold text-gray-900 mb-2">{project.title}</h3>
         <p className="text-gray-600 mb-4 flex-grow line-clamp-4">{project.description}</p>
         <div className="flex flex-wrap gap-2 mb-4">
