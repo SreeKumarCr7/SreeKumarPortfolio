@@ -97,13 +97,11 @@ const Projects = () => {
   };
 
   const handleProjectLinkClick = (e: React.MouseEvent, type: string) => {
-    // For demo links that aren't ready yet
-    if (e.currentTarget.getAttribute('href') === '#') {
-      e.preventDefault();
-      setToastMessage(`${type} will be updated soon!`);
-      setShowToast(true);
-      setTimeout(() => setShowToast(false), 3000);
-    }
+    // For all project links, show the toast message
+    e.preventDefault();
+    setToastMessage(`${type} will be updated soon!`);
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000);
   };
 
   useEffect(() => {
@@ -225,7 +223,7 @@ const Projects = () => {
 
       {/* Toast notification */}
       {showToast && (
-        <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-fade-in-up">
+        <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-indigo-700 text-white px-6 py-4 rounded-lg shadow-xl z-50 animate-fade-in-up text-center font-medium">
           {toastMessage}
         </div>
       )}
@@ -291,9 +289,7 @@ const ProjectCard = ({ project, index, onLinkClick, isPersonal = false }: Projec
           {project.githubUrl && (
             <a
               href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center text-gray-700 hover:text-indigo-600 transition-colors"
+              className="flex items-center text-gray-700 hover:text-indigo-600 transition-colors cursor-pointer"
               onClick={(e) => onLinkClick(e, 'GitHub repository')}
             >
               <FaGithub className="mr-1" />
@@ -303,9 +299,7 @@ const ProjectCard = ({ project, index, onLinkClick, isPersonal = false }: Projec
           {project.liveUrl && (
             <a
               href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center text-gray-700 hover:text-indigo-600 transition-colors"
+              className="flex items-center text-gray-700 hover:text-indigo-600 transition-colors cursor-pointer"
               onClick={(e) => onLinkClick(e, 'Live demo')}
             >
               <FaExternalLinkAlt className="mr-1" />
