@@ -143,6 +143,7 @@ const About = () => {
             <div className="relative bg-white p-6 rounded-2xl shadow-md">
               <div className="flex justify-center mb-6">
                 <div className="w-64 h-64 rounded-full overflow-hidden border-4 border-white shadow-lg flex items-center justify-center">
+                  {/*
                   <img
                     src={meImage}
                     alt="C. Sree Kumar"
@@ -151,6 +152,7 @@ const About = () => {
                     onContextMenu={(e) => e.preventDefault()}
                     draggable="false"
                   />
+                  */>
                 </div>
               </div>
               
