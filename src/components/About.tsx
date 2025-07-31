@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { HiOutlineLocationMarker, HiOutlineCode, HiOutlineClock, HiOutlineBriefcase, HiOutlineAcademicCap } from 'react-icons/hi';
-import meImage from '../assets/me1.jpeg';
 import { useEffect, useState } from 'react';
 
 const About = () => {
